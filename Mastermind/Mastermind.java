@@ -1,27 +1,30 @@
-package progJava;
+package Mastermind;
 import java.util.*;
-import progJava.*;
 
 public class Mastermind {
 	
-	private  ArrayList<Couleur> secretCode;
-	private ArrayList<ArrayList<Couleur>> list;
-	private int choicesNumber;
-	private boolean win;
+	private  ArrayList<Couleur> secretCode = new ArrayList<Couleur>();
+	private ArrayList<ArrayList<Couleur>> list = new ArrayList<ArrayList<Couleur>>();
+	private int choicesNumber = 4;
+	private boolean win = false;
 	
 	public Mastermind(int colors) 
 	{
+    this.secretCode = createSecretCode();
+    secretCode = this.secretCode;
+    list = this.list;
 	}
 	
 	
 	
 	public ArrayList<Couleur> createSecretCode()
 	{
+    int couleur = 1;
 		for(int i = 0; i < choicesNumber; i++) {
-			int couleur = 1;
 			//int couleur = rand(couleur);
 			Couleur color = new Couleur(couleur);
-			secretCode.add(color);
+      couleur ++;
+			this.secretCode.add(color);
 		}
 		return secretCode;
 	}
@@ -29,29 +32,42 @@ public class Mastermind {
 	public ArrayList<Integer> compareAndGetResult(ArrayList<Couleur> playerChoices)
 	{
 		list.add(playerChoices);
-		ArrayList<Integer> result = new ArrayList<Integer>();
+		ArrayList<Integer> result = new ArrayList<Integer>(4);
 		this.win = true;
 		for (Couleur color : playerChoices) {
 			int comparatorResult = compareColor(color, playerChoices.indexOf(color));
 			if(comparatorResult ==  0 || comparatorResult == 1)
 				this.win = false;
-			result.set(playerChoices.indexOf(color), comparatorResult );
+			result.add(comparatorResult );
 		}
 		return result;
 	}
 	
 	public int compareColor(Couleur playerChoice, int position)
 	{
-		int result = 0;
-		if(secretCode.contains(playerChoice)) {
-			result++;
-			Couleur colorCode = secretCode.get(position);
-			if(colorCode.toString() == playerChoice.toString())
-				result++;
-		}
-		
+    boolean colorExists = false;
+    boolean samePosition = false;
+    for(Couleur secretColor : secretCode){
+     if(secretColor.getColor() == playerChoice.getColor()){
+       colorExists = true;
+       if(secretCode.indexOf(secretColor) == position)
+         samePosition = true;
+     }
+    }
+    int result = colorExists ? 1 : 0;
+    if(samePosition)
+      result++;
 		return result;
-	}
+  }
+  
+  public ArrayList<Couleur> getLineByGame(int index)
+  {
+    try {
+      return list.get( index );
+    } catch ( Exception e ) {
+    return null;
+    }
+  }
 	
 	public boolean getWin()
 	{

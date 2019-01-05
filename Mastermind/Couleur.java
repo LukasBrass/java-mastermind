@@ -1,4 +1,4 @@
-package progJava;
+package Mastermind;
 
 public class Couleur {
 
@@ -9,5 +9,14 @@ public class Couleur {
 		this.color = color;
 	}
 	
-	
+  public int getColor()
+  {
+    return this.color;
+  }
+  
+  @Override
+  public String toString()
+  {
+    return ""+this.getColor();
+  }
 }
