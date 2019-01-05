@@ -40,9 +40,9 @@ public class ConsoleView {
       System.out.println("Vous avez choisi "+PlayerChoices.get(0)+" "+PlayerChoices.get(1)+" "+PlayerChoices.get(2)+" "+PlayerChoices.get(3));
       ArrayList<Integer> result = m.compareAndGetResult(PlayerChoices);
       System.out.println("Voici les réponses "+result.get(0)+" "+result.get(1)+" "+result.get(2)+" "+result.get(3));
-      
     }
     this.show();
+   
     if(m.getWin())
       System.out.println("Bravo, Vous avez trouvé la bonne combinaison ! ");
     else
