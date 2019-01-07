@@ -5,11 +5,14 @@ public class Mastermind {
 	
 	private  ArrayList<Couleur> secretCode = new ArrayList<Couleur>();
 	private ArrayList<ArrayList<Couleur>> list = new ArrayList<ArrayList<Couleur>>();
-	private int choicesNumber = 4;
+	private int choicesNumber;
+  private int colorsNumber;
 	private boolean win = false;
 	
-	public Mastermind(int colors) 
+	public Mastermind(int choicesNumber, int colorsNumber) 
 	{
+    this.choicesNumber = choicesNumber;
+    this.colorsNumber = colorsNumber;
     this.secretCode = createSecretCode();
     secretCode = this.secretCode;
     list = this.list;
@@ -19,11 +22,9 @@ public class Mastermind {
 	
 	public ArrayList<Couleur> createSecretCode()
 	{
-    int couleur = 1;
+    Random r = new Random();
 		for(int i = 0; i < choicesNumber; i++) {
-			//int couleur = rand(couleur);
-			Couleur color = new Couleur(couleur);
-      couleur ++;
+			Couleur color = new Couleur(1 + r.nextInt(colorsNumber - 1));
 			this.secretCode.add(color);
 		}
 		return secretCode;
@@ -73,4 +74,9 @@ public class Mastermind {
 	{
 		return this.win;
 	}
+  
+  public ArrayList<Couleur> getSecretCode()
+  {
+    return this.secretCode;
+  }
 }
